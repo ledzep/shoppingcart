@@ -26,13 +26,13 @@ function pf_validate_number($value, $function, $redirect) {
 }
 
 function showcart() {
-	if(isset($_SESSION['SESS_ORDERNUM'])) {
-		if(isset($_SESSION['SESS_LOGGEDIN'])) {
-			$custsql = "SELECT id, status FROM orders WHERE customer_id = '" . $_SESSION['SESS_USERID'] . "' AND status < 2;";
+	if($_SESSION['SESS_ORDERNUM']) {
+		if($_SESSION['SESS_LOGGEDIN']) {
+			$custsql = "SELECT id, status FROM orders WHERE customer_id = " . $_SESSION['SESS_USERID'] . " AND status < 2;";
 			$custres = mysql_query($custsql);
 			$custrow = mysql_fetch_assoc($custsql);
 			$itemsql = "SELECT products.* orderitems.*, orderitems.id AS itemid FROM products, orderitems
-						WHERE orderitems.product_id = products.id AND order_id = " . $custrow['id'] . ";";
+						WHERE orderitems.product_id = products.id AND order_id = " . $custrow['id'];
 			$itemres = mysql_query($itemsql);
 			$itemnumrows = mysql_num_rows($itemres);
 		}
@@ -40,8 +40,9 @@ function showcart() {
 			$custsql = "SELECT id, status FROM orders WHERE session = '" . session_id() . "' AND status < 2;";
 			$custres = mysql_query($custsql);
 			$custrow = mysql_fetch_assoc($custres);
-			$itemsql = "SELECT products.* orderitems.*, orderitems.id AS itemid FROM products, orderitems
-						WHERE orderitems.product_id = products.id AND order_id = " . $custrow['id'] . ";";
+			$itemsql = "SELECT products.*, orderitems.*, orderitems.id AS
+						itemid FROM products, orderitems WHERE orderitems.product_id =
+						products.id AND order_id = " . $custrow['id'];
 			$itemres = mysql_query($itemsql);
 			$itemnumrows = mysql_num_rows($itemres);
 			mysql_error();
@@ -89,7 +90,7 @@ function showcart() {
 			echo "<td></td>";
 		echo "</tr>";
 		echo "</table>";
-		echo "<p><a href='checkout-address.php'>Go to the checkout</a></p>";
+		//echo "<p><a href='checkout-address.php'>Go to the checkout</a></p>";
 	}	
 			
 }			
