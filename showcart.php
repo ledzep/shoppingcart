@@ -19,3 +19,5 @@ if(isset($_SESSION['SESS_ORDERNUM']) == TRUE) {
 require("footer.php");
 
 ?>
+
+
