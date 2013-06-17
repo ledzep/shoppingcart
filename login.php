@@ -49,6 +49,18 @@ if(isset($_POST['submit'])) {
 		
 		$_SESSION['SESS_ORDERNUM'] = $orderrow['id'];
 		
+		/* session variable called SESS_ORDERNUM is set to the id returned from $ordersql query.
+		This process can have one of two outcomes:
+		■ No order exists. If no order exists in the orders table, SESS_ORDERNUM is not set
+		to anything.
+
+		■ An order exists. If an id is returned from the query, SESS_ORDERNUM is set to
+		this id. This is useful if the user was selecting items for the shopping cart
+		and then logged out. When the user logs in again, the shopping cart contains
+		the same items from the previous visit and the user can continue to select
+		items. This functionality provides some important continuity.
+		*/
+		
 		header("Location: " . $config_basedir);
 	}
 	else {
