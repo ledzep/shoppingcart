@@ -34,14 +34,14 @@ else {
 							VALUES(" . $_SESSION['SESS_ORDERNUM'] . ", " . $_GET['id'] . ", " . $_POST['amountBox'] . ")";
 				mysql_query($itemsql);
 			}
-			else {
+			/*else {
 				$sql = "INSERT INTO orders(registered, date, session) VALUES(". "0, NOW(), '" . session_id() . "')";
 				mysql_query($sql);
 				$_SESSION['SESS_ORDERNUM'] = mysql_insert_id();
 				
 				$itemsql = "INSERT INTO orderitems(order_id, product_id, quantity) VALUES(" . $_SESSION['SESS_ORDERNUM'] . ", " . $_GET['id'] . ", " . $_POST['amountBox'] . ")";
 				mysql_query($itemsql);
-			} /* If SESS_LOGGEDIN does not exist, the user is not currently logged in
+			}   If SESS_LOGGEDIN does not exist, the user is not currently logged in
 				(they possibly don’t have a user account). As such, an order is created in the
 				orders table (using session_id() to get the unique session id) and then the
 				item is added to the orderitems table. */
